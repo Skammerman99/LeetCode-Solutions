@@ -3,7 +3,6 @@ public:
     bool isHappy(int n) {
         vector<int> reached;
         return isHappyRecursive(n, reached);
-        
     }
     
     bool isHappyRecursive(int n, vector<int>& reached){
@@ -17,6 +16,7 @@ public:
         for(int num:arr){
             sum += pow(num,2);
         }
+        arr.clear();
         if(sum == 1){
             return true;
         }
