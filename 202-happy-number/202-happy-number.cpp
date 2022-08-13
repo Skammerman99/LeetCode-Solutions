@@ -16,7 +16,6 @@ public:
         for(int num:arr){
             sum += pow(num,2);
         }
-        arr.clear();
         if(sum == 1){
             return true;
         }
