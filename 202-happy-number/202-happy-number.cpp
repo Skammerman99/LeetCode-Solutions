@@ -15,7 +15,6 @@ public:
         arr.push_back(n);
         int sum = 0;
         for(int num:arr){
-            std::cout << num << std::endl;
             sum += pow(num,2);
         }
         if(sum == 1){
