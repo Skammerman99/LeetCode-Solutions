@@ -4,7 +4,6 @@ class Solution:
         for i in range(1,n+1):
             if n % i == 0:
                 factors.append(i)
-        print(factors)
         if len(factors) >= k:  
             return factors[k-1]
         else:
