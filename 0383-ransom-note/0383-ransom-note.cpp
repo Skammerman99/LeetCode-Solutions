@@ -17,7 +17,9 @@ public:
                     noteChars.erase(c);
                 }
             }
-            std::cout << noteChars.empty() << std::endl;
+            if(noteChars.empty()){
+                return true;
+            }
         }
         
         
