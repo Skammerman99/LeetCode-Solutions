@@ -23,9 +23,9 @@ class Solution:
                     taskDict[task] -= 1
                     if taskDict[task] <= 0:
                         del taskDict[task]
-                    
+                    taskDict = dict(sorted(taskDict.items(), key = lambda x: x[1], reverse=True))
                     break
-            taskDict = dict(sorted(taskDict.items(), key = lambda x: x[1], reverse=True))
+            
 
                     
         return totalCycles
