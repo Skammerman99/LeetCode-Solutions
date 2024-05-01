@@ -5,8 +5,6 @@ public:
         int last = nums[0];
         int count = 1;
         for(int i = 1; i < nums.size(); i++){
-            std::cout << "last: " << last << std::endl;
-            std::cout << "count: " << count << std::endl;
             if(nums[i] == last){
                 count++;
             }else if(count == 3){
