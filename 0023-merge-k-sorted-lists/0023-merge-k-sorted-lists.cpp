@@ -1,67 +1,35 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
-    
-    ListNode* mergeTwoLists(ListNode* head1, ListNode* head2){
-        ListNode* newHead = nullptr;
-        ListNode* newIndex = newHead;
-        if(head1 != nullptr || head2 != nullptr){
-            newHead = new ListNode;
-            newIndex = newHead;
-        }else{
-            return nullptr;
-        }
-        while(head1 != nullptr && head2 != nullptr){
-            if(head1->val < head2->val){
-                newIndex->val = head1->val;
-                head1 = head1->next;
-                newIndex->next = new ListNode;
-                newIndex = newIndex->next;
-            }else{
-                newIndex->val = head2->val;
-                head2 = head2->next;
-                newIndex->next = new ListNode;
-                newIndex = newIndex->next;
-            }
-        }
-        while(head1 != nullptr){
-            newIndex->val = head1->val;
-            head1 = head1->next;
-            if(head1 != nullptr){
-                newIndex->next = new ListNode;
-                newIndex = newIndex->next;
-            }
-        }
-        while(head2 != nullptr){
-            newIndex->val = head2->val;
-            head2 = head2->next;
-            if(head2 != nullptr){
-                newIndex->next = new ListNode;
-                newIndex = newIndex->next;
-            }
-            
-        }
-        return newHead;
-    }
-    
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size() == 0){
+        if(!lists.size()){
             return nullptr;
         }
-        while(lists.size() > 1){
-            lists.push_back(mergeTwoLists(lists[0], lists[1]));
-            lists.erase(lists.begin());
-            lists.erase(lists.begin());
+        vector<int> compiledList;
+        for(auto list : lists){
+            if(list != nullptr){
+                compiledList.push_back(list->val);
+                while(list->next != nullptr){
+                    list = list->next;
+                    compiledList.push_back(list->val);
+                }
+            }
         }
-        return lists[0];
+        if(!compiledList.size()){
+            return nullptr;
+        }
+        std::sort(compiledList.begin(), compiledList.end());
+        ListNode* resultHead = new ListNode;
+        ListNode* resultIndex = resultHead;
+        int count = 0;
+        for(auto num : compiledList){
+            resultIndex->val = num;
+            count++;
+            if(count != compiledList.size()){
+                resultIndex->next = new ListNode;
+                resultIndex = resultIndex->next;
+            }
+        }
+        resultIndex = nullptr;
+        return resultHead;
     }
 };
