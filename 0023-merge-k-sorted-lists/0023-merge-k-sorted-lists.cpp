@@ -12,8 +12,6 @@ class Solution {
 public:
     
     ListNode* mergeTwoLists(ListNode* head1, ListNode* head2){
-        ListNode* index1 = head1;
-        ListNode* index2 = head2;
         ListNode* newHead = nullptr;
         ListNode* newIndex = newHead;
         if(head1 != nullptr || head2 != nullptr){
@@ -22,31 +20,31 @@ public:
         }else{
             return nullptr;
         }
-        while(index1 != nullptr && index2 != nullptr){
-            if(index1->val < index2->val){
-                newIndex->val = index1->val;
-                index1 = index1->next;
+        while(head1 != nullptr && head2 != nullptr){
+            if(head1->val < head2->val){
+                newIndex->val = head1->val;
+                head1 = head1->next;
                 newIndex->next = new ListNode;
                 newIndex = newIndex->next;
             }else{
-                newIndex->val = index2->val;
-                index2 = index2->next;
+                newIndex->val = head2->val;
+                head2 = head2->next;
                 newIndex->next = new ListNode;
                 newIndex = newIndex->next;
             }
         }
-        while(index1 != nullptr){
-            newIndex->val = index1->val;
-            index1 = index1->next;
-            if(index1 != nullptr){
+        while(head1 != nullptr){
+            newIndex->val = head1->val;
+            head1 = head1->next;
+            if(head1 != nullptr){
                 newIndex->next = new ListNode;
                 newIndex = newIndex->next;
             }
         }
-        while(index2 != nullptr){
-            newIndex->val = index2->val;
-            index2 = index2->next;
-            if(index2 != nullptr){
+        while(head2 != nullptr){
+            newIndex->val = head2->val;
+            head2 = head2->next;
+            if(head2 != nullptr){
                 newIndex->next = new ListNode;
                 newIndex = newIndex->next;
             }
