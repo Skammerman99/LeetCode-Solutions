@@ -10,36 +10,60 @@
  */
 class Solution {
 public:
+    
+    ListNode* mergeTwoLists(ListNode* head1, ListNode* head2){
+        ListNode* index1 = head1;
+        ListNode* index2 = head2;
+        ListNode* newHead = nullptr;
+        ListNode* newIndex = newHead;
+        if(head1 != nullptr || head2 != nullptr){
+            newHead = new ListNode;
+            newIndex = newHead;
+        }else{
+            return nullptr;
+        }
+        while(index1 != nullptr && index2 != nullptr){
+            if(index1->val < index2->val){
+                newIndex->val = index1->val;
+                index1 = index1->next;
+                newIndex->next = new ListNode;
+                newIndex = newIndex->next;
+            }else{
+                newIndex->val = index2->val;
+                index2 = index2->next;
+                newIndex->next = new ListNode;
+                newIndex = newIndex->next;
+            }
+        }
+        while(index1 != nullptr){
+            newIndex->val = index1->val;
+            index1 = index1->next;
+            if(index1 != nullptr){
+                newIndex->next = new ListNode;
+                newIndex = newIndex->next;
+            }
+        }
+        while(index2 != nullptr){
+            newIndex->val = index2->val;
+            index2 = index2->next;
+            if(index2 != nullptr){
+                newIndex->next = new ListNode;
+                newIndex = newIndex->next;
+            }
+            
+        }
+        return newHead;
+    }
+    
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(!lists.size()){
+        if(lists.size() == 0){
             return nullptr;
         }
-        vector<int> compiledList;
-        for(auto list : lists){
-            if(list != nullptr){
-                compiledList.push_back(list->val);
-                while(list->next != nullptr){
-                    list = list->next;
-                    compiledList.push_back(list->val);
-                }
-            }
+        while(lists.size() > 1){
+            lists.push_back(mergeTwoLists(lists[0], lists[1]));
+            lists.erase(lists.begin());
+            lists.erase(lists.begin());
         }
-        if(!compiledList.size()){
-            return nullptr;
-        }
-        std::sort(compiledList.begin(), compiledList.end());
-        ListNode* resultHead = new ListNode;
-        ListNode* resultIndex = resultHead;
-        int count = 0;
-        for(auto num : compiledList){
-            resultIndex->val = num;
-            count++;
-            if(count != compiledList.size()){
-                resultIndex->next = new ListNode;
-                resultIndex = resultIndex->next;
-            }
-        }
-        resultIndex = nullptr;
-        return resultHead;
+        return lists[0];
     }
 };
